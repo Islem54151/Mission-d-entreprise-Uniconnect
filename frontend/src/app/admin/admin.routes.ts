@@ -21,11 +21,7 @@ export const ADMIN_ROUTE: Route[] = [
         (m) => m.ADMIN_STUDENT_ROUTE
       ),
   },
-  {
-    path: 'courses',
-    loadChildren: () =>
-      import('./courses/courses.routes').then((m) => m.COURSE_ROUTE),
-  },
+
   {
     path: 'library',
     loadChildren: () =>
