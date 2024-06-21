@@ -12,6 +12,11 @@ export const TEACHER_ROUTE: Route[] = [
     component: DashboardComponent,
   },
   {
+    path: 'courses',
+    loadChildren: () =>
+      import('./courses/courses.routes').then((m) => m.COURSE_ROUTE),
+  },
+  {
     path: 'lectures',
     component: LecturesComponent,
   },
