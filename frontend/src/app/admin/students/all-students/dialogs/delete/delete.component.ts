@@ -6,8 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 export interface DialogData {
   id: number;
   name: string;
-  department: string;
-  mobile: string;
+
 }
 
 @Component({

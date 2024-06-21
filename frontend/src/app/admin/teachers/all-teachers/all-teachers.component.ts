@@ -64,13 +64,13 @@ export class AllTeachersComponent
   displayedColumns = [
     'select',
     'img',
-    'name',
+    'cin',
+    'firstname',
+    'lastname',
     'department',
     'gender',
-    'degree',
-    'mobile',
     'email',
-    'date',
+    'dateBirth',
     'actions',
   ];
   exampleDatabase?: TeachersService;
@@ -262,13 +262,13 @@ export class AllTeachersComponent
     // key name with space add in brackets
     const exportData: Partial<TableElement>[] =
       this.dataSource.filteredData.map((x) => ({
-        Name: x.name,
-        Department: x.department,
-        Gender: x.gender,
-        Degree: x.degree,
-        Mobile: x.mobile,
-        Email: x.email,
-        'Joining Date': formatDate(new Date(x.date), 'yyyy-MM-dd', 'en') || '',
+        'CIN': x.cin,
+        'First Name': x.firstname,
+       ' Last Name': x.lastname,
+        'Department': x.department,
+        'Gender': x.gender,
+       ' Email': x.email,
+        'Birth Date': formatDate(new Date(x.dateBirth), 'yyyy-MM-dd', 'en') || '',
       }));
 
     TableExportUtil.exportToExcel(exportData, 'excel');
@@ -338,9 +338,10 @@ export class ExampleDataSource extends DataSource<Teachers> {
               teachers.name +
               teachers.department +
               teachers.gender +
-              teachers.degree +
               teachers.email +
-              teachers.mobile
+              teachers.firstname +
+              teachers.lastname +
+              teachers.cin
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -371,20 +372,21 @@ export class ExampleDataSource extends DataSource<Teachers> {
         case 'id':
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case 'name':
-          [propertyA, propertyB] = [a.name, b.name];
-          break;
+          case 'firstname':
+            [propertyA, propertyB] = [a.firstname, b.firstname];
+            break;
+          case 'lastname':
+            [propertyA, propertyB] = [a.lastname, b.lastname];
+            break;
         case 'email':
           [propertyA, propertyB] = [a.email, b.email];
           break;
-        case 'date':
-          [propertyA, propertyB] = [a.date, b.date];
-          break;
-        case 'time':
-          [propertyA, propertyB] = [a.department, b.department];
-          break;
-        case 'mobile':
-          [propertyA, propertyB] = [a.mobile, b.mobile];
+          case 'dateBirth':
+            [propertyA, propertyB] = [a.dateBirth, b.dateBirth];
+            break;
+      
+        case 'cin':
+          [propertyA, propertyB] = [a.cin, b.cin];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

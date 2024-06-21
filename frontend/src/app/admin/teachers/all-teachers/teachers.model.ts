@@ -4,22 +4,29 @@ export class Teachers {
   img: string;
   name: string;
   email: string;
-  date: string;
+  dateBirth: string;
   gender: string;
-  mobile: string;
+  cin: string;
+  firstname: string;
+  lastname: string;
   department: string;
-  degree: string;
+  token: string;
+  role: string;
   constructor(teachers: Teachers) {
     {
       this.id = teachers.id || this.getRandomID();
-      this.img = teachers.img || 'assets/images/user/user1.jpg';
+      this.cin = teachers.cin ?? '';
+      this.firstname = teachers.firstname ?? '';
+      this.lastname = teachers.lastname ?? '';
+      this.img = teachers.img || 'assets/imgs/user/user1.jpg';
       this.name = teachers.name || '';
       this.email = teachers.email || '';
-      this.date = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
+      this.dateBirth = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
       this.gender = teachers.gender || '';
-      this.mobile = teachers.mobile || '';
       this.department = teachers.department || '';
-      this.degree = teachers.degree || '';
+      this.role = teachers.role ?? 'TEACHER';
+      this.token= teachers.token?? 'teacher-token';
+  
     }
   }
   public getRandomID(): number {

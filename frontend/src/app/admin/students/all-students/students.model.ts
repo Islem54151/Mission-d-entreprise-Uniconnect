@@ -1,30 +1,37 @@
 import { formatDate } from '@angular/common';
+
+
 export class Students {
   id: number;
-  img: string;
-  name: string;
+  cin: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  date: string;
+  password: string;
+  dateBirth: string;
+  image: string;
+  role: string;
   gender: string;
-  mobile: string;
-  department: string;
-  rollNo: string;
-  constructor(students: Students) {
-    {
-      this.id = students.id || this.getRandomID();
-      this.img = students.img || 'assets/images/user/user1.jpg';
-      this.name = students.name || '';
-      this.email = students.email || '';
-      this.date = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
-      this.gender = students.gender || '';
-      this.mobile = students.mobile || '';
-      this.department = students.department || '';
-      this.rollNo = students.rollNo || '';
-    }
+  token: string;
+
+  constructor(students: Partial<Students> = {}) {
+    this.id = students.id ?? this.getRandomID();
+    this.cin = students.cin ?? '';
+    this.firstname = students.firstname ?? '';
+    this.lastname = students.lastname ?? '';
+    this.email = students.email ?? '';
+    this.password = students.password ?? '';
+    this.dateBirth = students.dateBirth ?? formatDate(new Date(), 'yyyy-MM-dd', 'en');
+    this.image = students.image ?? "C:/Users/bough/Desktop/1ALINFO/Mission d'entreprise/Projet/Frontend/src/app/admin/students/all-students/user.png";
+    this.role = students.role ?? 'STUDENT';
+    this.token= students.token?? 'student-token';
+
+    this.gender = students.gender ?? '';
   }
+
   public getRandomID(): number {
     const S4 = () => {
-      return ((1 + Math.random()) * 0x10000) | 0;
+      return Math.floor((1 + Math.random()) * 0x10000);
     };
     return S4() + S4();
   }

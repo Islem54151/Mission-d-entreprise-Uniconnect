@@ -51,7 +51,7 @@ export class FormDialogComponent {
     // Set the defaults
     this.action = data.action;
     if (this.action === 'edit') {
-      this.dialogTitle = data.students.name;
+      this.dialogTitle = data.students.lastname;
       this.students = data.students;
     } else {
       this.dialogTitle = 'New Students';
@@ -73,21 +73,37 @@ export class FormDialogComponent {
   }
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
+      // id: [this.students.id],
+      // firstname: [this.students.firstname, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      // lastname: [this.students.lastname,[Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      // cin: [this.students.cin, [Validators.required]],
+      // gender: [this.students.gender],
+      // email: [
+      //   this.students.email,
+      //   ,
+      //   [Validators.required, Validators.email, Validators.minLength(5)],
+      // ],
+      // dateBirth: [
+      //   formatDate(this.students.dateBirth, 'yyyy-MM-dd', 'en'),
+      //   [Validators.required],
+      // ],
       id: [this.students.id],
-      img: [this.students.img],
-      name: [this.students.name],
+      image: [this.students.image],
+      
+       firstname: [this.students.firstname, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      lastname: [this.students.lastname,[Validators.required, Validators.pattern('[a-zA-Z]+')]],
+     
       email: [
         this.students.email,
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
-      date: [
-        formatDate(this.students.date, 'yyyy-MM-dd', 'en'),
+      cin: [this.students.cin, [Validators.required]],
+      dateBirth: [
+        formatDate(this.students.dateBirth, 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],
       gender: [this.students.gender],
-      mobile: [this.students.mobile],
-      department: [this.students.department],
-      rollNo: [this.students.rollNo],
+   
     });
   }
   submit() {
@@ -97,6 +113,6 @@ export class FormDialogComponent {
     this.dialogRef.close();
   }
   public confirmAdd(): void {
-    this.studentsService.addStudents(this.stdForm.getRawValue());
+    this.studentsService.addStudent(this.stdForm.getRawValue());
   }
 }

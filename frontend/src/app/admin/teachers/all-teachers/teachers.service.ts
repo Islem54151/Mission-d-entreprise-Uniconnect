@@ -9,7 +9,7 @@ import { UnsubscribeOnDestroyAdapter } from '@shared';
 })
 
 export class TeachersService extends UnsubscribeOnDestroyAdapter {
-  private readonly API_URL = 'assets/data/teachers.json';
+  private readonly API_URL = 'http://localhost:8089/users-rest-controller';
   isTblLoading = true;
   dataChange: BehaviorSubject<Teachers[]> = new BehaviorSubject<Teachers[]>([]);
   // Temporarily stores data from dialogs
@@ -25,7 +25,7 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
   }
   /** CRUD METHODS */
   getAllTeacherss(): void {
-    this.subs.sink = this.httpClient.get<Teachers[]>(this.API_URL).subscribe({
+    this.subs.sink = this.httpClient.get<Teachers[]>(`${this.API_URL}/teachers`).subscribe({
       next: (data) => {
         this.isTblLoading = false;
         this.dataChange.next(data);
@@ -37,42 +37,39 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
     });
   }
   addTeachers(teachers: Teachers): void {
-    this.dialogData = teachers;
+    // this.dialogData = teachers;
 
-    // this.httpClient.post(this.API_URL, teachers)
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.dialogData = teachers;
-    //     },
-    //     error: (error: HttpErrorResponse) => {
-    //        // error code here
-    //     },
-    //   });
+    this.httpClient.post(`${this.API_URL}/teacher`, teachers)
+      .subscribe({
+        next: (data) => {
+          this.dialogData = teachers;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error(error);
+        },
+      });
   }
   updateTeachers(teachers: Teachers): void {
-    this.dialogData = teachers;
+    // this.dialogData = teachers;
 
-    // this.httpClient.put(this.API_URL + teachers.id, teachers)
-    //     .subscribe({
-    //       next: (data) => {
-    //         this.dialogData = teachers;
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
+    this.httpClient.put(`${this.API_URL}/teacher`, teachers)
+        .subscribe({
+          next: (data) => {
+            this.dialogData = teachers;
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error(error.name + ' ' + error.message);
+          },
+        });
   }
   deleteTeachers(id: number): void {
-    console.log(id);
-
-    // this.httpClient.delete(this.API_URL + id)
-    //     .subscribe({
-    //       next: (data) => {
-    //         console.log(id);
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
+    this.subs.sink = this.httpClient.delete(`${this.API_URL}/teacher/${id}`).subscribe({
+      next: (data) => {
+        console.log(id);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.name + ' ' + error.message);
+      },
+    });
   }
 }
