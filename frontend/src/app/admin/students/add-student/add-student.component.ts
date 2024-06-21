@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.component';
+import { StudentsService } from '../all-students/students.service';
+import { Students } from '../all-students/students.model';
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
@@ -35,28 +37,44 @@ export class AddStudentComponent {
       active: 'Add Student',
     },
   ];
-  constructor(private fb: UntypedFormBuilder) {
+  constructor(private fb: UntypedFormBuilder,private s:StudentsService) {
     this.stdForm = this.fb.group({
-      first: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      last: [''],
-      rollNo: ['', [Validators.required]],
+      firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      lastname: ['',[Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      cin: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       email: [
         '',
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
-      mobile: ['', [Validators.required]],
-      rDate: ['', [Validators.required]],
-      department: [''],
-      parentName: ['', [Validators.required]],
-      parentNo: [''],
-      dob: ['', [Validators.required]],
-      bGroup: [''],
-      address: [''],
-      uploadFile: [''],
+      dateBirth: ['', [Validators.required]],
+
+      image: [''],
     });
   }
-  onSubmit() {
-    console.log('Form Value', this.stdForm.value);
+  // addStd() {
+  //   this.s.addStudent(this.stdForm.value);
+  //   console.log('Form Value', this.stdForm.value);
+  // }
+  addStd() {
+    const formValues = this.stdForm.value;
+    const newStudent = new Students({
+      ...formValues,
+      role: 'STUDENT', // valeur par défaut
+      token: 'student-token', // valeur par défaut
+      image: formValues.image || 'assets/images/user/user.png', // valeur par défaut si non fourni
+    });
+
+    this.s.addStudent(newStudent);
+    console.log('Form Value', newStudent);
+    this.stdForm.reset({
+      firstname: '',
+      lastname: '',
+      cin: '',
+      gender: '',
+      email: '',
+      dateBirth: '',
+      image: '', // ou l'URL par défaut si nécessaire
+    });
   }
 }

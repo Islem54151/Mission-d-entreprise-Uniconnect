@@ -14,13 +14,13 @@
             <h2>Add Student</h2>
           </div>
           <div class="body">
-            <form class="m-4" [formGroup]="stdForm" (ngSubmit)="onSubmit()">
+            <form class="m-4" [formGroup]="stdForm">
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>First name</mat-label>
-                    <input matInput formControlName="first" required>
-                    @if (stdForm.get('first')?.hasError('required')) {
+                    <input matInput formControlName="firstname" required>
+                    @if (stdForm.get('firstname')?.hasError('required')) {
                     <mat-error>
                       First name is required
                     </mat-error>
@@ -30,30 +30,28 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Last name</mat-label>
-                    <input matInput formControlName="last">
+                    <input matInput formControlName="lastname">
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Roll No</mat-label>
-                    <input matInput formControlName="rollNo">
+                    <mat-label>CIN</mat-label>
+                    <input matInput formControlName="cin">
                   </mat-form-field>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Gender</mat-label>
                     <mat-select formControlName="gender" required>
-                      <mat-option [value]="'male'">
-                        Male
+                      <mat-option [value]="'MALE'">
+                        MALE
                       </mat-option>
-                      <mat-option [value]="'female'">
-                        Female
+                      <mat-option [value]="'FEMALE'">
+                        FEMALE
                       </mat-option>
-                      <mat-option [value]="'other'">
-                        Other
-                      </mat-option>
+                    
                     </mat-select>
                     @if (stdForm.get('gender')?.hasError('required')) {
                     <mat-error>
@@ -74,15 +72,29 @@
                     </mat-error>
                     }
                   </mat-form-field>
-                </div>
+                </div> 
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Date Of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateBirth" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    @if (stdForm.get('dateBirth')?.hasError('required')) {
+                    <mat-error>
+                      Please select date
+                    </mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+               <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Mobile</mat-label>
                     <input matInput formControlName="mobile" type="number" required>
                   </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
+                </div>  -->
+             
+              <!-- <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Registration Date</mat-label>
@@ -122,9 +134,9 @@
                     </mat-error>
                     }
                   </mat-form-field>
-                </div>
+                </div> 
               </div>
-              <div class="row">
+              <div class="row">  
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Parents name</mat-label>
@@ -135,53 +147,42 @@
                     </mat-error>
                     }
                   </mat-form-field>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                </div> -->
+                <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Parents Mobile Number</mat-label>
                     <input matInput formControlName="parentNo" type="number">
                   </mat-form-field>
-                </div>
-              </div>
+                </div> 
+              </div>-->
               <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Date Of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dob" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    @if (stdForm.get('dob')?.hasError('required')) {
-                    <mat-error>
-                      Please select date
-                    </mat-error>
-                    }
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+              
+                <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Blood Group</mat-label>
                     <input matInput formControlName="bGroup">
                   </mat-form-field>
-                </div>
+                </div> -->
               </div>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Address</mat-label>
                     <textarea matInput formControlName="address"></textarea>
                   </mat-form-field>
                 </div>
-              </div>
+              </div> -->
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
-                  <label>Upload</label>
-                  <app-file-upload formControlName="uploadFile"></app-file-upload>
+                  <label>Upload Image</label>
+                  <app-file-upload formControlName="image"></app-file-upload>
                 </div>
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                  <button class="btn-space" [disabled]="!stdForm.valid " mat-flat-button color="primary">Submit</button>
+                  <button class="btn-space"  type="submit" mat-flat-button color="primary" [disabled]="!stdForm.valid " (click)="addStd()">Submit</button>
                   <button type="button" mat-flat-button color="warn">Cancel</button>
+                  <!-- [disabled]="!stdForm.valid "  -->
                 </div>
               </div>
             </form>

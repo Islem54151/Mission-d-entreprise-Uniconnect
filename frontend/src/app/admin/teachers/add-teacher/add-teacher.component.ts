@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.component';
+import { Teachers } from '../all-teachers/teachers.model';
+import { TeachersService } from '../all-teachers/teachers.service';
 
 @Component({
   selector: 'app-add-teacher',
@@ -36,27 +38,46 @@ export class AddTeacherComponent {
       active: 'Add Teacher',
     },
   ];
-  constructor(private fb: UntypedFormBuilder) {
+  constructor(private fb: UntypedFormBuilder , private ps:TeachersService) {
     this.proForm = this.fb.group({
-      first: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      last: [''],
+    
+      firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      lastname: ['',[Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      cin: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      mobile: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      conformPassword: ['', [Validators.required]],
-      designation: [''],
-      department: [''],
-      address: [''],
       email: [
         '',
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
-      dob: ['', [Validators.required]],
-      education: [''],
-      uploadFile: [''],
+      dateBirth: ['', [Validators.required]],
+
+      img: [''],  
+      password: ['', [Validators.required]],
+      conformPassword: ['', [Validators.required]],
+      department: [''],
+    
     });
   }
   onSubmit() {
-    console.log('Form Value', this.proForm.value);
-  }
+    const formValues = this.proForm.value;
+    const newTeacher = new Teachers({
+      ...formValues,
+      role: 'TEACHER', // valeur par défaut
+      token: 'teacher-token', // valeur par défaut
+    });
+
+    this.ps.addTeachers(newTeacher);
+    console.log('Form Value', newTeacher);
+    this.proForm.reset({
+      firstname: '',
+      lastname: '',
+      cin: '',
+      gender: '',
+      email: '',
+      dateBirth: '',
+      image: '',
+      department:'',
+      password:'',
+      conformPassword:''
+    });  }
 }
