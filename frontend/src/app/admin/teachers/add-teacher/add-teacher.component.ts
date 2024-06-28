@@ -51,10 +51,11 @@ export class AddTeacherComponent {
       ],
       dateBirth: ['', [Validators.required]],
 
-      img: [''],  
+      img: [''],       
+      department: ['', [Validators.required]],
+
       password: ['', [Validators.required]],
       conformPassword: ['', [Validators.required]],
-      department: [''],
     
     });
   }
@@ -75,7 +76,7 @@ export class AddTeacherComponent {
       gender: '',
       email: '',
       dateBirth: '',
-      image: '',
+      img: '',
       department:'',
       password:'',
       conformPassword:''

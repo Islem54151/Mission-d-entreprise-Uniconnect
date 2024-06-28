@@ -30,6 +30,8 @@ import { Students } from '../all-students/students.model';
 })
 export class AddStudentComponent {
   stdForm: UntypedFormGroup;
+  selectedFile: File | null = null;
+
   breadscrums = [
     {
       title: 'Add Student',
@@ -48,24 +50,46 @@ export class AddStudentComponent {
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
       dateBirth: ['', [Validators.required]],
-
       image: [''],
+      password: ['', [Validators.required]],
+      department: ['', [Validators.required]],
+
     });
   }
-  // addStd() {
-  //   this.s.addStudent(this.stdForm.value);
-  //   console.log('Form Value', this.stdForm.value);
-  // }
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
   addStd() {
     const formValues = this.stdForm.value;
     const newStudent = new Students({
       ...formValues,
       role: 'STUDENT', // valeur par défaut
       token: 'student-token', // valeur par défaut
-      image: formValues.image || 'assets/images/user/user.png', // valeur par défaut si non fourni
     });
 
-    this.s.addStudent(newStudent);
+    // this.s.addStudent(newStudent);
+    this.s.addStudent(newStudent).subscribe({
+      next: (student: Students) => {
+        if (this.selectedFile) {
+          this.s.uploadImage(student.id, this.selectedFile).subscribe({
+            next: (response: any) => {
+              console.log('Image uploaded successfully:', response);
+              student.image = response.imageUrl; // Assign the correct image URL
+            //  this.refreshTable();
+            },
+            error: (error: any) => {
+              console.error('Error uploading image:', error);
+            }
+          });
+        }
+        console.log('Student added successfully:', student);
+      //  this.refreshTable();
+      },
+      error: (error: any) => {
+        console.error('Error adding student:', error);
+      }
+    });
+  
     console.log('Form Value', newStudent);
     this.stdForm.reset({
       firstname: '',
@@ -74,7 +98,9 @@ export class AddStudentComponent {
       gender: '',
       email: '',
       dateBirth: '',
-      image: '', // ou l'URL par défaut si nécessaire
+      image: '',
+      password: '',
+      department: '',
     });
   }
 }

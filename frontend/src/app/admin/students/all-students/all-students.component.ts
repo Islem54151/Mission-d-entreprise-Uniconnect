@@ -34,6 +34,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-all-students',
@@ -67,7 +68,7 @@ export class AllStudentsComponent
     'cin',
     'firstname',
     'lastname',
-    // 'department',
+    'department',
     'gender',
     // 'mobile',
     'email',
@@ -90,7 +91,9 @@ export class AllStudentsComponent
     public httpClient: HttpClient,
     public dialog: MatDialog,
     public studentsService: StudentsService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef  // Inject ChangeDetectorRef
+
   ) {
     super();
   }
@@ -202,7 +205,7 @@ export class AllStudentsComponent
   }
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
-  }
+    this.cdr.detectChanges();  }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.renderedData.length;
@@ -245,6 +248,7 @@ export class AllStudentsComponent
           return;
         }
         this.dataSource.filter = this.filter.nativeElement.value;
+        this.cdr.detectChanges();
       }
     );
   }
@@ -254,7 +258,7 @@ export class AllStudentsComponent
         'CIN': x.cin,
         'First Name': x.firstname,
         'Last Name': x.lastname,
-        // 'Department': x.department,
+        'Department': x.department,
         'Gender': x.gender,
         // 'Mobile': x.mobile,
         'Email': x.email,
@@ -328,6 +332,8 @@ export class ExampleDataSource extends DataSource<Students> {
               students.firstname +
               students.lastname +
               students.email+ 
+              students.department+ 
+
               students.cin
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
@@ -372,9 +378,9 @@ export class ExampleDataSource extends DataSource<Students> {
         case 'dateBirth':
           [propertyA, propertyB] = [a.dateBirth, b.dateBirth];
           break;
-        // case 'department':
-        //   [propertyA, propertyB] = [a.department, b.department];
-        //   break;
+        case 'department':
+          [propertyA, propertyB] = [a.department, b.department];
+          break;
         case 'gender':
           [propertyA, propertyB] = [a.gender, b.gender];
           break;

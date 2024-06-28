@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Students } from './students.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
@@ -39,17 +39,17 @@ export class StudentsService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  addStudent(student: Students): void {
-    this.subs.sink = this.httpClient.post(`${this.API_URL}/student`, student).subscribe({
-      next: (data) => {
-        this.dialogData = student;
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error(error);
-      },
-    });
-  }
 
+
+  addStudent(student: Students): Observable<Students> {
+    return this.httpClient.post<Students>(`${this.API_URL}/student`, student);
+  }
+  uploadImage(studentId: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post(`${this.API_URL}/${studentId}/uploadImage`, formData);
+  }
   updateStudent(student: Students): void {
     this.subs.sink = this.httpClient.put(`${this.API_URL}/student`, student).subscribe({
       next: (data) => {

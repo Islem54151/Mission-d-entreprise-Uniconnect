@@ -103,7 +103,8 @@ export class FormDialogComponent {
         [Validators.required],
       ],
       gender: [this.students.gender],
-   
+      department: [this.students.department],
+
     });
   }
   submit() {
