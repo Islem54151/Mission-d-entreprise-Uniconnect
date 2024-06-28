@@ -31,7 +31,6 @@ public class User {
     String token;
     String specialite;
     String department;
-
     @Enumerated(EnumType.STRING)
     Role role;
     @Enumerated(EnumType.STRING)

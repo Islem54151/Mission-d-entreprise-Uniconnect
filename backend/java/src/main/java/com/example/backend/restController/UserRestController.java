@@ -1,11 +1,28 @@
 package com.example.backend.restController;
 
 import com.example.backend.entities.User;
+import com.example.backend.repositories.UserRepo;
 import com.example.backend.services.IUserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -92,7 +109,56 @@ public class UserRestController {
     public void deleteTeacher(@PathVariable Long id) {
         userService.deleteTeacher(id);
     }
+    private static final String UPLOAD_DIR = "uploads/";
 
+    @Autowired
+    private UserRepo userRepository;
+
+    @PostMapping("/{id}/uploadImage")
+    public ResponseEntity<Map<String, String>> uploadImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+            if (!Files.exists(uploadPath)) {
+                try {
+                    Files.createDirectories(uploadPath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Could not create upload directory"));
+                }
+            }
+            try {
+                String fileName = id + "_" + file.getOriginalFilename();
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(file.getInputStream(), filePath);
+
+                String imageUrl = "/uploads/" + fileName;  // Assuming '/uploads/' is the base URL for images
+                user.setImage(imageUrl);
+                userRepository.save(user);
+
+                return ResponseEntity.ok(Map.of("message", "File uploaded successfully", "fileName", fileName, "imageUrl", imageUrl));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "File upload failed"));
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "User not found"));
+        }
+    }
+    @GetMapping("/uploads/{fileName}")
+    public ResponseEntity<byte[]> getUploadedImage(@PathVariable String fileName) {
+        try {
+            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+            byte[] imageBytes = Files.readAllBytes(filePath);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG);
+            return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 
 
