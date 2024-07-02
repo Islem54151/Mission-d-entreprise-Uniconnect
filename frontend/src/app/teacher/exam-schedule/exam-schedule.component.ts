@@ -12,7 +12,7 @@ import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { DatePipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
@@ -20,6 +20,7 @@ import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.co
   templateUrl: './exam-schedule.component.html',
   styleUrls: ['./exam-schedule.component.scss'],
   standalone: true,
+  providers: [DatePipe], // Add this line
   imports: [
     BreadcrumbComponent,
     MatTableModule,
@@ -60,10 +61,12 @@ export class ExamScheduleComponent
 
   constructor(
     public httpClient: HttpClient,
-    public examScheduleService: ExamScheduleService
+    public examScheduleService: ExamScheduleService,
+    private datePipe: DatePipe
   ) {
     super();
   }
+
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild('filter', { static: true }) filter!: ElementRef;
@@ -77,18 +80,26 @@ export class ExamScheduleComponent
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
-      this.sort
+      this.sort,
+      this.datePipe
     );
-    this.subs.sink = fromEvent(this.filter.nativeElement, 'keyup').subscribe(
+    this.subs.sink = fromEvent(this.filter?.nativeElement, 'keyup').subscribe(
       () => {
         if (!this.dataSource) {
           return;
         }
-        this.dataSource.filter = this.filter.nativeElement.value;
+        this.applyFilter(this.filter?.nativeElement?.value || '');
       }
     );
   }
+
+  applyFilter(filterValue: string) {
+    if (this.dataSource) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+  }
 }
+
 export class ExampleDataSource extends DataSource<ExamSchedule> {
   filterChange = new BehaviorSubject('');
   get filter(): string {
@@ -99,15 +110,22 @@ export class ExampleDataSource extends DataSource<ExamSchedule> {
   }
   filteredData: ExamSchedule[] = [];
   renderedData: ExamSchedule[] = [];
+
   constructor(
     public exampleDatabase: ExamScheduleService,
     public paginator: MatPaginator,
-    public _sort: MatSort
+    public _sort: MatSort,
+    private datePipe: DatePipe
   ) {
     super();
     // Reset to the first page when the user changes the filter.
-    this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
+    this.filterChange.subscribe(() => {
+      if (this.paginator) {
+        this.paginator.pageIndex = 0;
+      }
+    });
   }
+
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<ExamSchedule[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
@@ -126,8 +144,8 @@ export class ExampleDataSource extends DataSource<ExamSchedule> {
           .filter((examSchedule: ExamSchedule) => {
             const searchStr = (
               examSchedule.subject +
-              examSchedule.class +
-              examSchedule.date +
+              examSchedule.classe +
+              this.datePipe.transform(examSchedule.date, 'yyyy-MM-dd') +
               examSchedule.time +
               examSchedule.duration +
               examSchedule.totalMarks
@@ -146,9 +164,11 @@ export class ExampleDataSource extends DataSource<ExamSchedule> {
       })
     );
   }
+
   disconnect() {
     // disconnect
   }
+
   /** Returns a sorted copy of the database data. */
   sortData(data: ExamSchedule[]): ExamSchedule[] {
     if (!this._sort.active || this._sort.direction === '') {
@@ -165,10 +185,13 @@ export class ExampleDataSource extends DataSource<ExamSchedule> {
           [propertyA, propertyB] = [a.subject, b.subject];
           break;
         case 'class':
-          [propertyA, propertyB] = [a.class, b.class];
+          [propertyA, propertyB] = [a.classe, b.classe];
           break;
         case 'date':
-          [propertyA, propertyB] = [a.date, b.date];
+          [propertyA, propertyB] = [
+            a.date.getTime(),
+            b.date.getTime()
+          ]; // compare dates as numbers
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
