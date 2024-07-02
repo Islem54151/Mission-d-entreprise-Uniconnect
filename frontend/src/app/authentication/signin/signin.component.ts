@@ -41,35 +41,35 @@ export class SigninComponent
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ['admin@school.org', Validators.required],
-      password: ['admin@123', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   get f() {
     return this.authForm.controls;
   }
   adminSet() {
-    this.authForm.get('username')?.setValue('admin@school.org');
-    this.authForm.get('password')?.setValue('admin@123');
+    this.authForm.get('email')?.setValue('');
+    this.authForm.get('password')?.setValue('');
   }
   teacherSet() {
-    this.authForm.get('username')?.setValue('teacher@school.org');
-    this.authForm.get('password')?.setValue('teacher@123');
+    this.authForm.get('email')?.setValue('');
+    this.authForm.get('password')?.setValue('');
   }
   studentSet() {
-    this.authForm.get('username')?.setValue('student@school.org');
-    this.authForm.get('password')?.setValue('student@123');
+    this.authForm.get('email')?.setValue('');
+    this.authForm.get('password')?.setValue('');
   }
   onSubmit() {
     this.submitted = true;
     this.loading = true;
     this.error = '';
     if (this.authForm.invalid) {
-      this.error = 'Username and Password not valid !';
+      this.error = 'Email and Password not valid !';
       return;
     } else {
       this.subs.sink = this.authService
-        .login(this.f['username'].value, this.f['password'].value)
+        .login(this.f['email'].value, this.f['password'].value)
         .subscribe({
           next: (res) => {
             if (res) {

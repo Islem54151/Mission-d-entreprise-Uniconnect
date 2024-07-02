@@ -14,9 +14,9 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdirectiveInject
-} from "./chunk-TSLQLR56.js";
-import "./chunk-JFG2QU4A.js";
-import "./chunk-EZEUMYUR.js";
+} from "./chunk-ICRPINU3.js";
+import "./chunk-RY32VPC2.js";
+import "./chunk-ORMHGJYE.js";
 import {
   Observable,
   ReplaySubject,
@@ -25,7 +25,7 @@ import {
   asyncScheduler,
   switchMap,
   throttleTime
-} from "./chunk-FBV46IIZ.js";
+} from "./chunk-VN4H42O6.js";
 import {
   __async,
   __spreadProps,
@@ -521,7 +521,7 @@ var provideEcharts = (config = {}) => {
   return {
     provide: NGX_ECHARTS_CONFIG,
     useFactory: () => __spreadProps(__spreadValues({}, config), {
-      echarts: () => import("./echarts-XOJKFRBA.js")
+      echarts: () => import("./echarts-YJRCL3R7.js")
     })
   };
 };

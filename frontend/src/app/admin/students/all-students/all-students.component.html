@@ -86,8 +86,11 @@
                           <mat-header-cell mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'"> Image
                           </mat-header-cell>
                           <mat-cell mat-cell *matCellDef="let row" class="table-img tbl-col-width-per-6"> <span
-                              class="mobile-label">Image:</span><img [src]="row.image" />
-                          </mat-cell>
+                              class="mobile-label">Image:</span>
+                              <!-- <img [src]="row.image" /> -->
+                              <img [src]="'http://localhost:8089/users-rest-controller' + row.image" alt="Student Image" />
+
+                            </mat-cell>
                         </ng-container>
                         <!-- <ng-container matColumnDef="rollNo">
                           <mat-header-cell *matHeaderCellDef mat-sort-header>Roll No
@@ -111,12 +114,12 @@
                               class="mobile-label">LastName:</span>{{row.lastname}}
                           </mat-cell>
                         </ng-container>
-                        <!-- <ng-container matColumnDef="department">
+                        <ng-container matColumnDef="department">
                           <mat-header-cell *matHeaderCellDef mat-sort-header>Department
                           </mat-header-cell>
                           <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
                             <span class="mobile-label">Department:</span> {{row.department}}</mat-cell>
-                        </ng-container> -->
+                        </ng-container>
                         <ng-container matColumnDef="gender">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Gender
                           </mat-header-cell>

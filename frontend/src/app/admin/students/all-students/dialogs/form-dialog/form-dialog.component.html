@@ -85,7 +85,38 @@
             }
           </mat-form-field>
         </div>
+
       </div>
+      <div class="row">
+
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+        <mat-form-field class="example-full-width mb-3" appearance="outline">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="department" required>
+            <mat-option [value]="'mechanical'">
+              Mechanical
+            </mat-option>
+            <mat-option [value]="'science'">
+              Science
+            </mat-option>
+            <mat-option [value]="'mathematics'">
+              Mathematics
+            </mat-option>
+            <mat-option [value]="'computer'">
+              Computer
+            </mat-option>
+            <mat-option [value]="'civil'">
+              Civil
+            </mat-option>
+          </mat-select>
+          @if (stdForm.get('department')?.hasError('required')) {
+          <mat-error>
+            Department is required
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <div class="example-button-row">

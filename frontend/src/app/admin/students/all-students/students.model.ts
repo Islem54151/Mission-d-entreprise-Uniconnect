@@ -12,6 +12,7 @@ export class Students {
   image: string;
   role: string;
   gender: string;
+  department: string;
   token: string;
 
   constructor(students: Partial<Students> = {}) {
@@ -22,9 +23,10 @@ export class Students {
     this.email = students.email ?? '';
     this.password = students.password ?? '';
     this.dateBirth = students.dateBirth ?? formatDate(new Date(), 'yyyy-MM-dd', 'en');
-    this.image = students.image ?? "C:/Users/bough/Desktop/1ALINFO/Mission d'entreprise/Projet/Frontend/src/app/admin/students/all-students/user.png";
+    this.image = students.image ?? '';
     this.role = students.role ?? 'STUDENT';
     this.token= students.token?? 'student-token';
+    this.department = students.department ?? '';
 
     this.gender = students.gender ?? '';
   }
