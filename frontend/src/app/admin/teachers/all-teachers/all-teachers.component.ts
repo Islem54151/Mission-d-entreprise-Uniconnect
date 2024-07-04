@@ -334,10 +334,8 @@ export class ExampleDataSource extends DataSource<Teachers> {
         this.filteredData = this.exampleDatabase.data
           .slice()
           .filter((teachers: Teachers) => {
+            
             const searchStr = (
-              teachers.name +
-              teachers.department +
-              teachers.gender +
               teachers.email +
               teachers.firstname +
               teachers.lastname +

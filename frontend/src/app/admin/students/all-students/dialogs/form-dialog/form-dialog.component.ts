@@ -89,7 +89,6 @@ export class FormDialogComponent {
       // ],
       id: [this.students.id],
       image: [this.students.image],
-      
        firstname: [this.students.firstname, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       lastname: [this.students.lastname,[Validators.required, Validators.pattern('[a-zA-Z]+')]],
      
