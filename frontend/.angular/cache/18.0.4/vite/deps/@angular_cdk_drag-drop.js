@@ -7,7 +7,7 @@ import "./chunk-2LNTCBWC.js";
 import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
-} from "./chunk-IFFFNUNY.js";
+} from "./chunk-3KRPQJD3.js";
 import {
   _getEventTarget,
   _getShadowRoot,
@@ -19,7 +19,6 @@ import {
 import {
   Directionality
 } from "./chunk-EZAEPUTK.js";
-import "./chunk-DZI3RTPO.js";
 import {
   DOCUMENT
 } from "./chunk-4QQCIMP3.js";
@@ -66,11 +65,11 @@ import {
   ɵɵdirectiveInject,
   ɵɵinject
 } from "./chunk-ICRPINU3.js";
+import "./chunk-ORMHGJYE.js";
 import {
   animationFrameScheduler,
   merge
 } from "./chunk-RY32VPC2.js";
-import "./chunk-ORMHGJYE.js";
 import {
   BehaviorSubject,
   Observable,
@@ -84,6 +83,7 @@ import {
   takeUntil,
   tap
 } from "./chunk-VN4H42O6.js";
+import "./chunk-DZI3RTPO.js";
 import "./chunk-EHLZM3EC.js";
 
 // node_modules/@angular/cdk/fesm2022/drag-drop.mjs

@@ -2,7 +2,7 @@ import {
   MAT_FORM_FIELD,
   MatFormField,
   MatFormFieldControl
-} from "./chunk-4FYGTIUR.js";
+} from "./chunk-BNAUXGNG.js";
 import "./chunk-ZWRBR65I.js";
 import "./chunk-3MALVJXJ.js";
 import {
@@ -19,23 +19,15 @@ import {
   MatRippleLoader,
   MatRippleModule,
   _ErrorStateTracker
-} from "./chunk-57MDPXZE.js";
+} from "./chunk-Q4SVJTW5.js";
 import {
   FocusKeyManager,
   FocusMonitor
-} from "./chunk-IFFFNUNY.js";
+} from "./chunk-3KRPQJD3.js";
 import "./chunk-RYP4AYDJ.js";
 import {
   Directionality
 } from "./chunk-EZAEPUTK.js";
-import {
-  BACKSPACE,
-  DELETE,
-  ENTER,
-  SPACE,
-  TAB,
-  hasModifierKey
-} from "./chunk-DZI3RTPO.js";
 import {
   DOCUMENT
 } from "./chunk-4QQCIMP3.js";
@@ -103,16 +95,24 @@ import {
   ɵɵtextInterpolate,
   ɵɵviewQuery
 } from "./chunk-ICRPINU3.js";
+import "./chunk-ORMHGJYE.js";
 import {
   merge
 } from "./chunk-RY32VPC2.js";
-import "./chunk-ORMHGJYE.js";
 import {
   Subject,
   startWith,
   switchMap,
   takeUntil
 } from "./chunk-VN4H42O6.js";
+import {
+  BACKSPACE,
+  DELETE,
+  ENTER,
+  SPACE,
+  TAB,
+  hasModifierKey
+} from "./chunk-DZI3RTPO.js";
 import "./chunk-EHLZM3EC.js";
 
 // node_modules/@angular/material/fesm2022/chips.mjs

@@ -14,12 +14,12 @@ import {
 import "./chunk-2LNTCBWC.js";
 import {
   MatCommonModule
-} from "./chunk-57MDPXZE.js";
+} from "./chunk-Q4SVJTW5.js";
 import {
   FocusMonitor,
   FocusTrapFactory,
   InteractivityChecker
-} from "./chunk-IFFFNUNY.js";
+} from "./chunk-3KRPQJD3.js";
 import {
   Platform,
   coerceBooleanProperty,
@@ -28,10 +28,6 @@ import {
 import {
   Directionality
 } from "./chunk-EZAEPUTK.js";
-import {
-  ESCAPE,
-  hasModifierKey
-} from "./chunk-DZI3RTPO.js";
 import {
   DOCUMENT
 } from "./chunk-4QQCIMP3.js";
@@ -90,11 +86,11 @@ import {
   ɵɵtemplate,
   ɵɵviewQuery
 } from "./chunk-ICRPINU3.js";
+import "./chunk-ORMHGJYE.js";
 import {
   fromEvent,
   merge
 } from "./chunk-RY32VPC2.js";
-import "./chunk-ORMHGJYE.js";
 import {
   Subject,
   debounceTime,
@@ -106,6 +102,10 @@ import {
   take,
   takeUntil
 } from "./chunk-VN4H42O6.js";
+import {
+  ESCAPE,
+  hasModifierKey
+} from "./chunk-DZI3RTPO.js";
 import "./chunk-EHLZM3EC.js";
 
 // node_modules/@angular/material/fesm2022/sidenav.mjs
