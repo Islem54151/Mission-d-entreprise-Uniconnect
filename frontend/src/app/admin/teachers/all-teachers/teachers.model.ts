@@ -7,6 +7,8 @@ export class Teachers {
   dateBirth: string;
   gender: string;
   cin: string;
+  password: string;
+
   firstname: string;
   lastname: string;
   department: string;
@@ -18,8 +20,9 @@ export class Teachers {
       this.cin = teachers.cin ?? '';
       this.firstname = teachers.firstname ?? '';
       this.lastname = teachers.lastname ?? '';
-      this.img = teachers.img || 'assets/imgs/user/user1.jpg';
+      this.img = teachers.img || '/uploads/Default_user.png';
       this.name = teachers.name || '';
+      this.password = teachers.password ?? '';
       this.email = teachers.email || '';
       this.dateBirth = formatDate(new Date(), 'yyyy-MM-dd', 'en') || '';
       this.gender = teachers.gender || '';

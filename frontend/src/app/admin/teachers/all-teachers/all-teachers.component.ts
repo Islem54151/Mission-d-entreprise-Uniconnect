@@ -327,7 +327,7 @@ export class ExampleDataSource extends DataSource<Teachers> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllTeacherss();
+    this.exampleDatabase.getAllTeachers();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data

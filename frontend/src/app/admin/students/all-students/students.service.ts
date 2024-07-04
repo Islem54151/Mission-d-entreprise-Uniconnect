@@ -71,6 +71,9 @@ export class StudentsService extends UnsubscribeOnDestroyAdapter {
       },
     });
   }
+  checkEmailExists(email: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.API_URL}/exists?email=${email}`);
+  }
 }
 
   // getAllStudentss(): void {

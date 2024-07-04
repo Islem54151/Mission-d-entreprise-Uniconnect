@@ -14,7 +14,7 @@
             <h2>Add Teacher</h2>
           </div>
           <div class="body">
-            <form class="m-4" [formGroup]="proForm" (ngSubmit)="onSubmit()">
+            <form class="m-4" [formGroup]="proForm" >
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
@@ -75,11 +75,27 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Re-Enter Password</mat-label>
-                    <input matInput formControlName="conformPassword" type="password" required>
-                    @if (proForm.get('conformPassword')?.hasError('required')) {
+                    <mat-label>Select Department</mat-label>
+                    <mat-select formControlName="department" required>
+                      <mat-option [value]="'mechanical'">
+                        Mechanical
+                      </mat-option>
+                      <mat-option [value]="'science'">
+                        Science
+                      </mat-option>
+                      <mat-option [value]="'mathematics'">
+                        Mathematics
+                      </mat-option>
+                      <mat-option [value]="'computer'">
+                        Computer
+                      </mat-option>
+                      <mat-option [value]="'civil'">
+                        Civil
+                      </mat-option>
+                    </mat-select>
+                    @if (proForm.get('department')?.hasError('required')) {
                     <mat-error>
-                      Re-Enter password is required
+                      Select Any Department
                     </mat-error>
                     }
                   </mat-form-field>
@@ -112,47 +128,18 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row">
-               
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                  <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Select Department</mat-label>
-                    <mat-select formControlName="department" required>
-                      <mat-option [value]="'mechanical'">
-                        Mechanical
-                      </mat-option>
-                      <mat-option [value]="'science'">
-                        Science
-                      </mat-option>
-                      <mat-option [value]="'mathematics'">
-                        Mathematics
-                      </mat-option>
-                      <mat-option [value]="'computer'">
-                        Computer
-                      </mat-option>
-                      <mat-option [value]="'civil'">
-                        Civil
-                      </mat-option>
-                    </mat-select>
-                    @if (proForm.get('department')?.hasError('required')) {
-                    <mat-error>
-                      Select Any Department
-                    </mat-error>
-                    }
-                  </mat-form-field>
-                </div>
-              </div>
+        
            
               <div class="row">
            
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
-                  <label>Upload</label>
-                  <app-file-upload formControlName="img"></app-file-upload>
+                  <label>Upload Image</label>
+                  <input  type="file" (change)="onFileSelected($event)" />
                 </div>
               </div>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                  <button class="btn-space" [disabled]="!proForm.valid " mat-flat-button color="primary">Submit</button>
+                  <button class="btn-space" [disabled]="!proForm.valid " mat-flat-button color="primary" (click)="addPro()">Submit</button>
                   <button type="button" mat-flat-button color="warn">Cancel</button>
                 </div>
               </div>
