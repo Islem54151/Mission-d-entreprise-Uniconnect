@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -30,6 +31,8 @@ export class SigninComponent
   loading = false;
   error = '';
   hide = true;
+  selectedRole: string | null = null;
+
   constructor(
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
@@ -45,57 +48,71 @@ export class SigninComponent
       password: ['', Validators.required],
     });
   }
+
   get f() {
     return this.authForm.controls;
   }
+
   adminSet() {
-    this.authForm.get('email')?.setValue('');
-    this.authForm.get('password')?.setValue('');
+    this.selectedRole = 'ADMIN';
+    this.authForm.reset();
   }
+
   teacherSet() {
-    this.authForm.get('email')?.setValue('');
-    this.authForm.get('password')?.setValue('');
+    this.selectedRole = 'TEACHER';
+    this.authForm.reset();
   }
+
   studentSet() {
-    this.authForm.get('email')?.setValue('');
-    this.authForm.get('password')?.setValue('');
+    this.selectedRole = 'STUDENT';
+    this.authForm.reset();
   }
+
   onSubmit() {
     this.submitted = true;
     this.loading = true;
     this.error = '';
-    if (this.authForm.invalid) {
-      this.error = 'Email and Password not valid !';
+
+    if (this.authForm.invalid || !this.selectedRole) {
+      this.error = 'Email or Password not valid !';
+      this.loading = false;
       return;
-    } else {
-      this.subs.sink = this.authService
-        .login(this.f['email'].value, this.f['password'].value)
-        .subscribe({
-          next: (res) => {
-            if (res) {
-              setTimeout(() => {
-                const role = this.authService.currentUserValue.role;
-                if (role === Role.All || role === Role.Admin) {
-                  this.router.navigate(['/admin/dashboard/main']);
-                } else if (role === Role.Teacher) {
-                  this.router.navigate(['/teacher/dashboard']);
-                } else if (role === Role.Student) {
-                  this.router.navigate(['/student/dashboard']);
-                } else {
-                  this.router.navigate(['/authentication/signin']);
-                }
-                this.loading = false;
-              }, 1000);
-            } else {
-              this.error = 'Invalid Login';
-            }
-          },
-          error: (error) => {
-            this.error = error;
-            this.submitted = false;
-            this.loading = false;
-          },
-        });
     }
+
+    this.subs.sink = this.authService
+      .login(this.f['email'].value, this.f['password'].value)
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            const userRole = this.authService.currentUserValue.role;
+            if (userRole !== this.selectedRole) {
+              this.error = 'Role mismatch!';
+              this.loading = false;
+              return;
+            }
+
+            setTimeout(() => {
+              if (userRole === Role.Admin) {
+                this.router.navigate(['/admin/dashboard/main']);
+              } else if (userRole === Role.Teacher) {
+                this.router.navigate(['/teacher/dashboard']);
+              } else if (userRole === Role.Student) {
+                this.router.navigate(['/student/dashboard']);
+              } else {
+                this.router.navigate(['/authentication/signin']);
+              }
+              this.loading = false;
+            }, 1000);
+          } else {
+            this.error = 'Invalid Login';
+            this.loading = false;
+          }
+        },
+        error: (error) => {
+          this.error = error;
+          this.submitted = false;
+          this.loading = false;
+        },
+      });
   }
 }

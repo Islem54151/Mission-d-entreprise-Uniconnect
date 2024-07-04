@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Teachers } from './teachers.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
@@ -24,7 +24,7 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
     return this.dialogData;
   }
   /** CRUD METHODS */
-  getAllTeacherss(): void {
+  getAllTeachers(): void {
     this.subs.sink = this.httpClient.get<Teachers[]>(`${this.API_URL}/teachers`).subscribe({
       next: (data) => {
         this.isTblLoading = false;
@@ -36,18 +36,15 @@ export class TeachersService extends UnsubscribeOnDestroyAdapter {
       },
     });
   }
-  addTeachers(teachers: Teachers): void {
-    // this.dialogData = teachers;
 
-    this.httpClient.post(`${this.API_URL}/teacher`, teachers)
-      .subscribe({
-        next: (data) => {
-          this.dialogData = teachers;
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error(error);
-        },
-      });
+  addTeachers(teacher: Teachers): Observable<Teachers> {
+    return this.httpClient.post<Teachers>(`${this.API_URL}/teacher`, teacher);
+  }
+  uploadImage(teacherId: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post(`${this.API_URL}/${teacherId}/uploadImage`, formData);
   }
   updateTeachers(teachers: Teachers): void {
     // this.dialogData = teachers;

@@ -95,8 +95,9 @@
         <li class="nav-item user_profile">
           <button mat-button [matMenuTriggerFor]="profilemenu">
             <div class="chip dropdown-toggle" ngbDropdownToggle class="pt-0">
-              <img src="{{userImg}}" class="user_img" width="32" height="32" alt="User">
-              <span>Ella Jones</span>
+              <img [src]="'http://localhost:8089/users-rest-controller' + userImg" class="user_img" width="32" height="32" alt="User">
+
+              <span>{{userFullName}}</span>
             </div>
           </button>
           <mat-menu #profilemenu="matMenu" class="profile-menu">

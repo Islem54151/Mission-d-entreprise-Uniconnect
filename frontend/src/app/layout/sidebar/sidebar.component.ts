@@ -82,12 +82,15 @@ export class SidebarComponent extends UnsubscribeOnDestroyAdapter implements OnI
   ngOnInit() {
     if (this.authService.currentUserValue) {
       const userRole = this.authService.currentUserValue.role;
+      console.log(userRole);
+
       this.userFullName =
         this.authService.currentUserValue.firstname +
         ' ' +
         this.authService.currentUserValue.lastname;
-      this.userImg = this.authService.currentUserValue.img;
-
+      this.userImg = this.authService.currentUserValue.image;
+    console.log(this.userFullName);
+    console.log(this.userImg);
       this.sidebarItems = ROUTES.filter(
         (x) => x.role.indexOf(userRole) !== -1 || x.role.indexOf('All') !== -1
       );

@@ -3,13 +3,13 @@ import {
   MatFormField,
   MatFormFieldControl,
   MatFormFieldModule
-} from "./chunk-4FYGTIUR.js";
+} from "./chunk-BNAUXGNG.js";
 import {
   CdkConnectedOverlay,
   CdkOverlayOrigin,
   Overlay,
   OverlayModule
-} from "./chunk-OKN4ZVMX.js";
+} from "./chunk-PCMDDSBN.js";
 import {
   animate,
   animateChild,
@@ -42,26 +42,16 @@ import {
   _ErrorStateTracker,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition
-} from "./chunk-57MDPXZE.js";
+} from "./chunk-Q4SVJTW5.js";
 import {
   ActiveDescendantKeyManager,
   LiveAnnouncer,
   addAriaReferencedId,
   removeAriaReferencedId
-} from "./chunk-IFFFNUNY.js";
+} from "./chunk-3KRPQJD3.js";
 import {
   Directionality
 } from "./chunk-EZAEPUTK.js";
-import {
-  A,
-  DOWN_ARROW,
-  ENTER,
-  LEFT_ARROW,
-  RIGHT_ARROW,
-  SPACE,
-  UP_ARROW,
-  hasModifierKey
-} from "./chunk-DZI3RTPO.js";
 import {
   CommonModule,
   NgClass
@@ -140,6 +130,16 @@ import {
   take,
   takeUntil
 } from "./chunk-VN4H42O6.js";
+import {
+  A,
+  DOWN_ARROW,
+  ENTER,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  SPACE,
+  UP_ARROW,
+  hasModifierKey
+} from "./chunk-DZI3RTPO.js";
 
 // node_modules/@angular/material/fesm2022/select.mjs
 var _c0 = ["trigger"];
@@ -1511,4 +1511,4 @@ export {
   MatSelectTrigger,
   MatSelectModule
 };
-//# sourceMappingURL=chunk-QFTOBY6C.js.map
+//# sourceMappingURL=chunk-A46MPVEH.js.map

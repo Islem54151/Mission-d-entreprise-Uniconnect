@@ -22,13 +22,13 @@ import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatCommonModule,
   MatRipple
-} from "./chunk-57MDPXZE.js";
+} from "./chunk-Q4SVJTW5.js";
 import {
   CdkMonitorFocus,
   CdkObserveContent,
   FocusKeyManager,
   FocusMonitor
-} from "./chunk-IFFFNUNY.js";
+} from "./chunk-3KRPQJD3.js";
 import {
   Platform,
   normalizePassiveListenerOptions
@@ -36,11 +36,6 @@ import {
 import {
   Directionality
 } from "./chunk-EZAEPUTK.js";
-import {
-  ENTER,
-  SPACE,
-  hasModifierKey
-} from "./chunk-DZI3RTPO.js";
 import {
   DOCUMENT
 } from "./chunk-4QQCIMP3.js";
@@ -117,11 +112,11 @@ import {
   ɵɵtextInterpolate,
   ɵɵviewQuery
 } from "./chunk-ICRPINU3.js";
+import "./chunk-ORMHGJYE.js";
 import {
   fromEvent,
   merge
 } from "./chunk-RY32VPC2.js";
-import "./chunk-ORMHGJYE.js";
 import {
   BehaviorSubject,
   EMPTY,
@@ -138,6 +133,11 @@ import {
   takeUntil,
   timer
 } from "./chunk-VN4H42O6.js";
+import {
+  ENTER,
+  SPACE,
+  hasModifierKey
+} from "./chunk-DZI3RTPO.js";
 import "./chunk-EHLZM3EC.js";
 
 // node_modules/@angular/material/fesm2022/tabs.mjs

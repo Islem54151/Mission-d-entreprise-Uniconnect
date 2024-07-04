@@ -53,6 +53,7 @@ export class HeaderComponent
 {
   public config!: InConfiguration;
   userImg?: string;
+  userFullName?: string;
   homePage?: string;
   isNavbarCollapsed = true;
   flagvalue: string | string[] | undefined;
@@ -135,7 +136,11 @@ export class HeaderComponent
     this.config = this.configService.configData;
 
     const userRole = this.authService.currentUserValue.role;
-    this.userImg = this.authService.currentUserValue.img;
+    this.userImg = this.authService.currentUserValue.image;
+    this.userFullName =
+        this.authService.currentUserValue.firstname +
+        ' ' +
+        this.authService.currentUserValue.lastname;
     this.docElement = document.documentElement;
 
     if (userRole === Role.Admin) {

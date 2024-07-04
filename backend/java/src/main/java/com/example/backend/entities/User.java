@@ -27,8 +27,7 @@ public class User {
     String email;
     String password;
     LocalDate dateBirth;
-    String image;
-    String token;
+    String image = "/uploads/Default_user.png";    String token;
     String specialite;
     String department;
     @Enumerated(EnumType.STRING)
