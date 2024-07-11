@@ -49,6 +49,7 @@ export class AuthService {
         } else {
           console.log('Login successful:', user);
           localStorage.setItem('currentUser', JSON.stringify(user));
+          sessionStorage.setItem('User', JSON.stringify(user));
           this.currentUserSubject.next(user);
           return this.ok({
             id: user.id,
@@ -86,6 +87,7 @@ export class AuthService {
 
   logout(): Observable<any> {
     localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('User');
     this.currentUserSubject.next(this.currentUserValue);
     return of({ success: false });
   }
