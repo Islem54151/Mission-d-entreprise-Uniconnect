@@ -1,6 +1,6 @@
 package com.example.backend.restController;
 import com.example.backend.entities.Staff;
-import com.example.backend.services.IStaffService;
+import com.example.backend.services.implementation.IStaffService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

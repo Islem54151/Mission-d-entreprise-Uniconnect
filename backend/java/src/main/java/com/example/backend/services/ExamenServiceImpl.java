@@ -1,8 +1,8 @@
 package com.example.backend.services;
 
-import com.example.backend.entities.Departement;
 import com.example.backend.entities.Examen;
 import com.example.backend.repositories.ExamenRepo;
+import com.example.backend.services.implementation.IExamenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

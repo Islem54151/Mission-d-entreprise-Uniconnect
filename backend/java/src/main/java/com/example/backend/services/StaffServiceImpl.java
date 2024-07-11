@@ -1,8 +1,8 @@
 package com.example.backend.services;
 
-import com.example.backend.entities.Departement;
 import com.example.backend.entities.Staff;
 import com.example.backend.repositories.StaffRepo;
+import com.example.backend.services.implementation.IStaffService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

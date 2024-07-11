@@ -1,7 +1,7 @@
 package com.example.backend.restController;
 
 import com.example.backend.entities.Classe;
-import com.example.backend.services.IClasseService;
+import com.example.backend.services.implementation.IClasseService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

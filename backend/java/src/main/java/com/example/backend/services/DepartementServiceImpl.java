@@ -2,10 +2,9 @@ package com.example.backend.services;
 
 import com.example.backend.entities.Departement;
 import com.example.backend.repositories.DepartementRepo;
+import com.example.backend.services.implementation.IDepartementService;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.component';
+import { MainService } from './main.service';
 export type chartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -62,38 +63,40 @@ export type chartOptions = {
   ],
 })
 export class MainComponent implements OnInit {
+  studentCount: number = 0;
+  teacherCount: number = 0;
   @ViewChild('chart') chart!: ChartComponent;
-  public areaChartOptions!: Partial<chartOptions>;
-  public barChartOptions!: Partial<chartOptions>;
-  public performanceRateChartOptions!: Partial<chartOptions>;
-  public polarChartOptions!: Partial<chartOptions>;
-  breadscrums = [
-    {
-      title: 'Dashboad',
-      items: [],
-      active: 'Dashboard 1',
-    },
-  ];
-  constructor() {
-    //constructor
-  }
+  areaChartOptions!: Partial<chartOptions>;
+  barChartOptions!: Partial<chartOptions>;
+  performanceRateChartOptions!: Partial<chartOptions>;
+  polarChartOptions!: Partial<chartOptions>;
+breadscrums: any;
+
+  constructor(private mainService: MainService) {}
 
   ngOnInit() {
-    this.chart1();
+    this.mainService.getCounts().subscribe(data => {
+       this.teacherCount = data.teachers;
+      this.studentCount = data.students;
+      let newStudentsData = typeof data.newStudents === 'number' ? [data.newStudents] : [];
+      this.chart1(newStudentsData, [data.oldStudents]);
+    });
+
     this.chart2();
     this.chart3();
     this.chart4();
   }
-  private chart1() {
+
+  private chart1(newStudents: number[], oldStudents: number[]) {
     this.areaChartOptions = {
       series: [
         {
-          name: 'new students',
-          data: [31, 40, 28, 51, 42, 85, 77],
+          name: 'New Students',
+          data: newStudents,
         },
         {
-          name: 'old students',
-          data: [11, 32, 45, 32, 34, 52, 41],
+          name: 'Old Students',
+          data: oldStudents,
         },
       ],
       chart: {
@@ -135,7 +138,6 @@ export class MainComponent implements OnInit {
         offsetX: 0,
         offsetY: 0,
       },
-
       tooltip: {
         x: {
           format: 'dd/MM/yy HH:mm',
@@ -143,6 +145,7 @@ export class MainComponent implements OnInit {
       },
     };
   }
+
 
   private chart2() {
     this.barChartOptions = {
@@ -254,6 +257,7 @@ export class MainComponent implements OnInit {
       },
     };
   }
+
   private chart3() {
     this.performanceRateChartOptions = {
       series: [
@@ -315,7 +319,8 @@ export class MainComponent implements OnInit {
       },
     };
   }
-  public chart4() {
+
+  private chart4() {
     this.polarChartOptions = {
       series2: [44, 55, 13, 43],
       chart: {

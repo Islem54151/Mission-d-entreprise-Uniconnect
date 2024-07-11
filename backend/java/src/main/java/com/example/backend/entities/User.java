@@ -30,6 +30,9 @@ public class User {
     String image = "/uploads/Default_user.png";    String token;
     String specialite;
     String department;
+    @Column(name = "date_created")
+    //Add by Islem Nasraoui
+    private LocalDate dateCreated;
     @Enumerated(EnumType.STRING)
     Role role;
     @Enumerated(EnumType.STRING)

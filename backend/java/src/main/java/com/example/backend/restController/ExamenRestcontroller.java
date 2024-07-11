@@ -1,8 +1,7 @@
 package com.example.backend.restController;
 
-import com.example.backend.entities.Departement;
 import com.example.backend.entities.Examen;
-import com.example.backend.services.IExamenService;
+import com.example.backend.services.implementation.IExamenService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

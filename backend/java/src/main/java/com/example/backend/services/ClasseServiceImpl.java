@@ -1,16 +1,16 @@
 package com.example.backend.services;
 
 import com.example.backend.entities.Classe;
-import com.example.backend.entities.User;
 import com.example.backend.repositories.ClasseRepo;
 import com.example.backend.repositories.UserRepo;
+import com.example.backend.services.implementation.IClasseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @AllArgsConstructor
-public class ClasseServiceImpl implements IClasseService{
+public class ClasseServiceImpl implements IClasseService {
     ClasseRepo classeRepo;
     UserRepo userRepo;
     @Override

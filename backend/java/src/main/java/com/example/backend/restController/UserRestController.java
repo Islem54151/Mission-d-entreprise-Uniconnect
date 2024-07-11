@@ -2,24 +2,21 @@ package com.example.backend.restController;
 
 import com.example.backend.entities.User;
 import com.example.backend.repositories.UserRepo;
-import com.example.backend.services.IUserService;
+import com.example.backend.services.implementation.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -159,6 +156,17 @@ public class UserRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+//Add By Islem Nasraoui
+@GetMapping("/counts")
+public Map<String, Long> getCounts() {
+    Map<String, Long> counts = new HashMap<>();
+    counts.put("students", userService.countStudents());
+    counts.put("teachers", userService.countTeachers());
+    counts.put("newStudents", userService.countNewStudents()); // Assuming you have this method
+    counts.put("oldStudents", userService.countOldStudents()); // Assuming you have this method
+
+    return counts;
+}
 }
 
 

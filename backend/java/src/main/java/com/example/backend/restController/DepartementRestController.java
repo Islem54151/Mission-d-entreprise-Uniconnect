@@ -1,9 +1,8 @@
 package com.example.backend.restController;
 
 import com.example.backend.entities.Departement;
-import com.example.backend.services.IDepartementService;
+import com.example.backend.services.implementation.IDepartementService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

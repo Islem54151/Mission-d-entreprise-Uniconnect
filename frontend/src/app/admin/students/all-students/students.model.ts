@@ -9,6 +9,8 @@ export class Students {
   email: string;
   password: string;
   dateBirth: string;
+  //ADD by Islem Nasraoui
+  dateCreated: string;
   image: string;
   role: string;
   gender: string;
@@ -23,6 +25,8 @@ export class Students {
     this.email = students.email ?? '';
     this.password = students.password ?? '';
     this.dateBirth = students.dateBirth ?? formatDate(new Date(), 'yyyy-MM-dd', 'en');
+      //ADD by Islem Nasraoui
+    this.dateCreated = students.dateBirth ?? formatDate(new Date(), 'yyyy-MM-dd', 'en');
     this.image = students.image ?? '';
     this.role = students.role ?? 'STUDENT';
     this.token= students.token?? 'student-token';
